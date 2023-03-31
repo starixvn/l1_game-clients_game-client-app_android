@@ -2,12 +2,11 @@
   "name": "SABA.games",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
+    "start": "expo start",
     "build": "rimraf app.apk && eas build --platform android --local  --non-interactive --output app.apk"
   },
   "dependencies": {
     "expo": "~48.0.9",
-    "expo-dev-client": "~2.1.6",
     "expo-linking": "4.0.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "1.4.4",
