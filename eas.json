@@ -1,0 +1,15 @@
+{
+  "cli": {
+    "version": ">= 2.6.0",
+    "promptToConfigurePushNotifications": false
+  },
+  "build": {
+    "production": {
+      "channel": "production",
+      "android": {
+        "buildType": "apk",
+        "withoutCredentials": true
+      }
+    }
+  }
+}

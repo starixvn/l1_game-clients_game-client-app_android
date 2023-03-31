@@ -1,0 +1,16 @@
+variables:
+  EXPO_NO_KEYCHAIN: 1
+  EXPO_TOKEN: $EXPO_TOKEN
+
+build:
+  stage: build
+  script:
+    - yarn
+    - yarn build
+  when: manual
+  artifacts:
+    paths:
+      - app.apk
+    expire_in: 4 week
+  tags:
+    - ios-builder

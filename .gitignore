@@ -1,0 +1,17 @@
+node_modules/
+.expo/
+dist/
+npm-debug.*
+*.key
+*.orig.*
+web-build/
+
+# macOS
+.DS_Store
+
+# Natives
+ios/
+android/
+*.ipa
+*.aab
+*.apk
