@@ -36,5 +36,5 @@ push-to-info-site:
       if [ "$CHANGES" -gt "0" ]; then
           git status
           git commit -m "${COMMIT_MESSAGE}"
-          git push origin "${CI_COMMIT_BRANCH}"
+          git push origin $INFO_SITE_BRANCH
       fi
