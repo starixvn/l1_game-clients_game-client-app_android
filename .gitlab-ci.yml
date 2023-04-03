@@ -21,6 +21,8 @@ push-to-info-site:
   when: on_success
   tags:
     - android-builder
+  needs:
+    - build
   script:
     - git clone -b $INFO_SITE_BRANCH "https://$GITLAB_USERNAME:$GITLAB_TOKEN@$CI_SERVER_HOST/l1/info-site.git" $CI_COMMIT_SHA
     - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
