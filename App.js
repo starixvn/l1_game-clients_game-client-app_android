@@ -16,7 +16,7 @@ const stylesheet = StyleSheet.create({
   },
 });
 
-const DEFAULT_URI = "https://connectsite.lumigame.com/";
+const DEFAULT_URI = "https://l1sitconnectsite.sgamesuat.com/";
 
 export default function () {
   const { queryParams } = Linking.parse(Linking.useURL() ?? "_blank");
