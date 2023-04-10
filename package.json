@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "build": "rimraf app.apk && eas build --platform android --local  --non-interactive --output app.apk"
+    "build": "rimraf app.apk && eas build --platform android --local  --non-interactive --output app.apk",
+    "android": "expo run:android"
   },
   "dependencies": {
     "expo": "~48.0.9",
+    "expo-clipboard": "^4.1.2",
     "expo-linking": "4.0.1",
     "expo-splash-screen": "~0.18.1",
     "expo-status-bar": "1.4.4",
