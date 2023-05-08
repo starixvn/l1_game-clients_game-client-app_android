@@ -1,7 +1,13 @@
 import * as Linking from "expo-linking";
 import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
-import * as Clipboard from 'expo-clipboard';
+import * as Clipboard from "expo-clipboard";
+import { useState, useEffect } from "react";
+import { JSHmac, CONSTANTS } from "react-native-hash";
+import Constants from "expo-constants";
+
+const SECRET_KEY =
+  "ba76cbdbf165fe8ded976d38efc5759fecf413299394b63d234ccd88abd4375";
 
 const stylesheet = StyleSheet.create({
   statusBar: {
@@ -17,26 +23,43 @@ const stylesheet = StyleSheet.create({
   },
 });
 
-const DEFAULT_URI = "https://l1sitconnectsite.sgamesuat.com/";
+const DEFAULT_URI = "https://connectsite.lumigame.com/login";
 
 const copyToClipBoard = async (message) => {
   await Clipboard.setStringAsync(message);
-}
+};
 
 const handleMessage = (event) => {
-  try{
+  try {
     const eventData = JSON.parse(event.nativeEvent.data);
-    if(eventData.eventType === 'copy_to_clipboard'){
+    if (eventData.eventType === "copy_to_clipboard") {
       copyToClipBoard(eventData.data);
     }
-  }
-  catch  {}
-}
-
+  } catch {}
+};
 
 export default function () {
   const { queryParams } = Linking.parse(Linking.useURL() ?? "_blank");
+  const [token, setToken] = useState("");
+  const [userAgent, setUserAgent] = useState("");
   const uri = queryParams?.uri ?? DEFAULT_URI;
+
+  const generateToken = async () => {
+    const userAgent = await Constants.getWebViewUserAgentAsync();
+    setUserAgent(userAgent);
+
+    const token = await JSHmac(
+      userAgent,
+      SECRET_KEY,
+      CONSTANTS.HmacAlgorithms.HmacSHA256
+    );
+
+    setToken(token);
+  };
+
+  useEffect(() => {
+    generateToken();
+  }, []);
 
   return (
     <>
@@ -44,7 +67,19 @@ export default function () {
       <SafeAreaView style={stylesheet.navigationBar}>
         <View style={stylesheet.container}>
           <StatusBar hidden={true} />
-          <WebView source={{ uri }} setSupportMultipleWindows={false} onMessage={handleMessage} />
+          {token && (
+            <WebView
+              source={{
+                uri,
+                headers: {
+                  Authorization: `${token}`,
+                },
+              }}
+              userAgent={userAgent}
+              setSupportMultipleWindows={false}
+              onMessage={handleMessage}
+            />
+          )}
         </View>
       </SafeAreaView>
     </>
