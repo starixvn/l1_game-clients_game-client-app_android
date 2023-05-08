@@ -4,6 +4,7 @@
     "slug": "saba-games",
     "version": "1.0.0",
     "owner": "lumisoft22",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
     "splash": {
