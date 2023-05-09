@@ -45,7 +45,10 @@ export default function () {
   const uri = queryParams?.uri ?? DEFAULT_URI;
 
   const generateToken = async () => {
-    const userAgent = await Constants.getWebViewUserAgentAsync();
+    const userAgent = await Constants.getWebViewUserAgentAsync().replace(
+      "Android",
+      "Android wv"
+    );
     setUserAgent(userAgent);
 
     const token = await JSHmac(
