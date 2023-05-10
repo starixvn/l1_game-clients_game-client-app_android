@@ -2,7 +2,7 @@ import * as Linking from "expo-linking";
 import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import { WebView } from "react-native-webview";
 import * as Clipboard from "expo-clipboard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { JSHmac, CONSTANTS } from "react-native-hash";
 import Constants from "expo-constants";
 
@@ -42,12 +42,13 @@ export default function () {
   const { queryParams } = Linking.parse(Linking.useURL() ?? "_blank");
   const [token, setToken] = useState("");
   const [userAgent, setUserAgent] = useState("");
+  const [rerender, setRerender] = useState(true);
   const uri = queryParams?.uri ?? DEFAULT_URI;
 
   const generateToken = async () => {
-    const userAgent = await Constants.getWebViewUserAgentAsync().replace(
+    const userAgent = (await Constants.getWebViewUserAgentAsync()).replace(
       "Android",
-      "Android wv"
+      "Androidwv"
     );
     setUserAgent(userAgent);
 
@@ -58,6 +59,10 @@ export default function () {
     );
 
     setToken(token);
+  };
+
+  const forceRerender = () => {
+    setRerender(!rerender);
   };
 
   useEffect(() => {
@@ -76,11 +81,17 @@ export default function () {
                 uri,
                 headers: {
                   Authorization: `${token}`,
+                  Rerender: rerender.toString(),
                 },
               }}
               userAgent={userAgent}
               setSupportMultipleWindows={false}
               onMessage={handleMessage}
+              onShouldStartLoadWithRequest={(request) => {
+                if (!request.url.includes("relogin")) return true;
+                forceRerender();
+                return false;
+              }}
             />
           )}
         </View>
