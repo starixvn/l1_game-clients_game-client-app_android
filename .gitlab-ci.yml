@@ -1,6 +1,7 @@
 variables:
   EXPO_NO_KEYCHAIN: 1
   EXPO_TOKEN: $EXPO_TOKEN
+  INFO_SITE_BRANCH: update-apk
 
 build:
   stage: build
@@ -13,4 +14,27 @@ build:
       - app.apk
     expire_in: 4 week
   tags:
-    - ios-builder
+    - android-builder
+
+push-to-info-site:
+  stage: deploy
+  when: on_success
+  tags:
+    - android-builder
+  needs:
+    - build
+  script:
+    - git clone -b $INFO_SITE_BRANCH "https://$GITLAB_USERNAME:$GITLAB_TOKEN@$CI_SERVER_HOST/l1/info-site.git" $CI_COMMIT_SHA
+    - git config --global user.email "${GIT_USER_EMAIL:-$GITLAB_USER_EMAIL}"
+    - git config --global user.name "${GIT_USER_NAME:-$GITLAB_USER_NAME}"
+
+    - cp app.apk $CI_COMMIT_SHA/public/static/images/app-download/SABA.games.apk
+    - cd "${CI_COMMIT_SHA}"
+    - git add .
+    - |-
+      CHANGES=$(git status --porcelain | wc -l)
+      if [ "$CHANGES" -gt "0" ]; then
+          git status
+          git commit -m "${COMMIT_MESSAGE}"
+          git push origin $INFO_SITE_BRANCH
+      fi

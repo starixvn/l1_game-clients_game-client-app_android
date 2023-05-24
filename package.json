@@ -2,23 +2,29 @@
   "name": "SABA.games",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start --dev-client",
-    "build": "rimraf app.apk && eas build --platform android --local  --non-interactive --output app.apk"
+    "start": "expo start",
+    "build": "rimraf app.apk && eas build --platform android --local  --non-interactive --output app.apk",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
-    "expo": "~48.0.9",
-    "expo-dev-client": "~2.1.6",
+    "@types/react-native": "^0.71.6",
+    "expo": "~48.0.15",
+    "expo-clipboard": "^4.1.2",
+    "expo-constants": "~14.2.1",
+    "expo-dev-client": "~2.2.1",
     "expo-linking": "4.0.1",
-    "expo-splash-screen": "~0.18.1",
+    "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "1.4.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-native": "0.71.4",
+    "react-native": "0.71.7",
+    "react-native-hash": "^3.0.3",
     "react-native-webview": "11.26.0"
   },
   "devDependencies": {
-    "@babel/core": "7.19.6",
-    "eas-cli": "3.7.2",
+    "@babel/core": "^7.20.0",
+    "eas-cli": "3.8.1",
     "prettier": "2.7.1",
     "rimraf": "3.0.2"
   }
