@@ -1,7 +1,7 @@
 variables:
   EXPO_NO_KEYCHAIN: 1
   EXPO_TOKEN: $EXPO_TOKEN
-  INFO_SITE_BRANCH: app-download-page
+  INFO_SITE_BRANCH: update-apk
 
 build:
   stage: build

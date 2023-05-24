@@ -23,7 +23,7 @@ const stylesheet = StyleSheet.create({
   },
 });
 
-const DEFAULT_URI = "https://connectsite.lumigame.com/login";
+const DEFAULT_URI = "https://connect.sabagame.com/login";
 
 const copyToClipBoard = async (message) => {
   await Clipboard.setStringAsync(message);
