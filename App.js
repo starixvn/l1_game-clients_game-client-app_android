@@ -1,10 +1,10 @@
-import * as Linking from "expo-linking";
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
-import { WebView } from "react-native-webview";
 import * as Clipboard from "expo-clipboard";
-import { useState, useEffect, useRef } from "react";
-import { JSHmac, CONSTANTS } from "react-native-hash";
 import Constants from "expo-constants";
+import * as Linking from "expo-linking";
+import { useEffect, useState } from "react";
+import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
+import { CONSTANTS, JSHmac } from "react-native-hash";
+import { WebView } from "react-native-webview";
 
 const SECRET_KEY =
   "ba76cbdbf165fe8ded976d38efc5759fecf413299394b63d234ccd88abd4375";
@@ -12,14 +12,15 @@ const SECRET_KEY =
 const stylesheet = StyleSheet.create({
   statusBar: {
     flex: 0,
-    backgroundColor: "#000",
+    backgroundColor: "#020d1f",
   },
   navigationBar: {
     flex: 1,
-    backgroundColor: "#000",
+    backgroundColor: "#020d1f",
   },
   container: {
     flex: 1,
+    backgroundColor: "#020d1f",
   },
 });
 
@@ -92,6 +93,18 @@ export default function () {
                 forceRerender();
                 return false;
               }}
+              style={{ backgroundColor: "transparent" }}
+              renderLoading={() => (
+                <View
+                  style={{
+                    flex: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <ActivityIndicator size="large" color="#ffff" />
+                </View>
+              )}
+              startInLoadingState
             />
           )}
         </View>
