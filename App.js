@@ -2,7 +2,7 @@ import * as Clipboard from "expo-clipboard";
 import Constants from "expo-constants";
 import * as Linking from "expo-linking";
 import { useEffect, useState } from "react";
-import { SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
+import { ActivityIndicator, SafeAreaView, StatusBar, StyleSheet, View } from "react-native";
 import { CONSTANTS, JSHmac } from "react-native-hash";
 import { WebView } from "react-native-webview";
 
