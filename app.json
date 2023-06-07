@@ -6,6 +6,7 @@
     "owner": "lumisoft22",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "backgroundColor": "#020d1f",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
